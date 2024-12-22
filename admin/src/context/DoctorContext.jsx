@@ -11,6 +11,7 @@ const DoctorContextProvider=(props)=>{
 		localStorage.getItem("dToken") ? localStorage.getItem("dToken") : ""
 	);
     const [appointments,setAppointments]=useState([])
+    
     const getAppointments =async()=>{
         try {
             const {data} = await axios.get(backendUrl + '/api/doctor/appointments',{headers:{dToken}})
@@ -26,7 +27,7 @@ const DoctorContextProvider=(props)=>{
             console.log(error)
             toast.error(error.message)
         }
-    }
+    };
 
         const value={
             dToken,setDToken,
