@@ -9,6 +9,7 @@ const doctorSchema =new mongoose.Schema({
     image:{type:String,required:true},
     degree:{type:String,required:true},
     experience:{type:String,required:true},
+    speciality:{type:String},
     about:{type:String,required:true},
     available:{type:String},
     // address:{type:String,required:true},

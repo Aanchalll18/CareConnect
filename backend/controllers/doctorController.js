@@ -1,22 +1,19 @@
-import React from "react";
-import doctorModel from "../models/doctorModel.js";
+import doctorModel from "../models/doctorModel.js"
 
-const changeAvailablity=async (requestAnimationFrame,res)=>{
+
+const changeAvailablity=async()=>{
   try{
-    const {docId}= req.body
+    const {docId}=req.body
+    const docData=await doctorModel.findById(docId)
     await doctorModel.findByIdAndUpdate(docId,{available:!docData.available})
-    res.json({
-      success:true,
-      message:'Availability Updated'
-    })
+    res.json({success:true,message:'Availablity changed'})
   }
   catch(e){
-    console.log(e);
-    res.json({
+    console.log(e)
+    resizeBy.status({
       success:false,
       message:e.message
     })
   }
 }
-
 export {changeAvailablity}

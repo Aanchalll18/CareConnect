@@ -12,14 +12,12 @@ const authadmin = async (req, res, next) => {
             });
         }
         
-        console.log("Authorization Header:", req.headers.authorization);
-        console.log("Extracted Token:", atoken);
-
+        
         const token_decode = jwt.verify(atoken, process.env.JWT_SECRET);
-        console.log("Decoded Token:", token_decode);
+      
 
         if (token_decode !== process.env.ADMIN_EMAIL + process.env.ADMIN_PASSWORD) {
-            console.log("Decoded Token:", token_decode);
+           
             console.log("Expected Token:", process.env.ADMIN_EMAIL + process.env.ADMIN_PASSWORD);
             return res.status(400).json({
                 success: false,
@@ -29,7 +27,7 @@ const authadmin = async (req, res, next) => {
 
         next();
     } catch (e) {
-        console.log("Error in authadmin middleware:", e);
+        
         return res.status(400).json({
             success: false,
             message: e.message

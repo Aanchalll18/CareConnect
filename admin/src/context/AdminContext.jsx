@@ -27,7 +27,7 @@ const AdminContextProvider = (props) => {
             }
           );
           if (data.success) {
-            toast.success(data.message)
+            
             setDoctors(data.doctors);
             console.log(data.doctors)
           } else {
