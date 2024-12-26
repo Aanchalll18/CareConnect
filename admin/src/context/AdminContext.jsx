@@ -22,12 +22,12 @@ const AdminContextProvider = (props) => {
             {},
             {
               headers: {
-                Authorization: `Bearer ${aToken}`,
-                'Content-Type': 'application/json' 
+               aToken
               },
             }
           );
           if (data.success) {
+            toast.success(data.message)
             setDoctors(data.doctors);
             console.log(data.doctors)
           } else {
@@ -36,13 +36,7 @@ const AdminContextProvider = (props) => {
             console.log(data.doctors)
           }
         } catch (error) {
-          if (error.response && error.response.status === 401) {
-           
-            await getAllDoctors(); 
-          } else {
-            console.error("Error fetching doctors:", error.response?.data || error.message);
-            toast.error(error.response?.data?.message || error.message);
-          }
+          toast.error(error,message)
         }
       };
     
