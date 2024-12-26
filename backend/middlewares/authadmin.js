@@ -38,3 +38,4 @@ const authadmin = async (req, res, next) => {
 };
 
 export default authadmin;
+
