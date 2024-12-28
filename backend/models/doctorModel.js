@@ -11,7 +11,7 @@ const doctorSchema =new mongoose.Schema({
     experience:{type:String,required:true},
     speciality:{type:String},
     about:{type:String,required:true},
-    available:{type:String},
+    available:{type:Boolean},
     // address:{type:String,required:true},
     address: {
         line1: { type: String, required: true },
