@@ -9,11 +9,9 @@ const AppContextProvider= (props) =>{
     const currencySymbol='$'
     const backendUrl=import.meta.env.VITE_BACKEND_URL
     const [doctors,setDoctors]=useState([])
+    const [token,settoken]=useState('')
 
-    const value={
-        doctors,
-        currencySymbol
-    }
+   
     const getAllDoctorsData=async()=>{
         try{
             const {data}=await axios.get(backendUrl + '/api/doctor/list')
@@ -30,6 +28,14 @@ const AppContextProvider= (props) =>{
            toast.error(e.message)
         } 
       }
+
+      const value={
+        doctors,
+        currencySymbol,
+        token,
+        settoken,
+        backendUrl
+    }
 
       useState(()=>{
         getAllDoctorsData()
