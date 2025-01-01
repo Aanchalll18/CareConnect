@@ -1,7 +1,11 @@
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { AppContext } from '../context/AppContext';
+import toast from 'react-hot-toast'
+import axios from 'axios';
 
 const Login = () => {
+  const {backendUrl,token,settoken}=useContext(AppContext)
   const [state, setState] = useState('Sign Up'); // Toggle between Sign Up and Login
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -10,8 +14,36 @@ const Login = () => {
   const onSubmitHandler = async (event) => {
     event.preventDefault();
     console.log({ name, email, password });
-    // Handle sign-up or login logic here
+
+    try{
+      console.log('in tryblock')
+      if(state=== 'Sign Up'){
+        const {data}=await axios.post(backendUrl + '/api/user/register',{name,email,password})
+        if(data.success){
+          localStorage.setItem('token',data.token)
+          settoken(data.token)
+
+        }else{
+          toast.error(data.message)
+        }
+      }else{
+        const {data}=await axios.post(backendUrl + '/api/user/login',{email,password})
+        if(data.success){
+          localStorage.setItem('token',data.token)
+          settoken(data.token)
+
+        }else{
+          toast.error(data.message)
+        }
+      }
+  
+    }
+    catch(e){
+      toast.error(e.message)
+    }
+  
   };
+  
 
   return (
     <form
