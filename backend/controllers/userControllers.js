@@ -1,9 +1,9 @@
 
-
 import validator from 'validator';
 import userModel from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 
 const registerUser = async (req, res) => {
     try {
@@ -114,9 +114,36 @@ const loginUser = async (req, res) => {
         return res.status(500).json({
             success: false,
             message: "Internal server error",
-            error: e.message, // Provide error details for debugging
+            error: e.message, 
         });
     }
 };
 
-export { registerUser,loginUser };
+const getProfile =async(req,res) =>{
+    try{
+        const {userId}=req.body;
+        const userData=await userModel.findById(userId).select('-password')
+
+
+        if (!mongoose.Types.ObjectId.isValid(userId)) {
+            return res.status(400).json({
+              success: false,
+              message: "Invalid userId format",
+            });
+          }
+          
+
+        return res.status(200).json({
+            success:true,
+            userData
+        })
+    }catch(e){
+        console.log(e)
+        return res.status(400).json({
+            success:false,
+            message:e.message
+        })
+    }
+}
+
+export { registerUser,loginUser,getProfile };
