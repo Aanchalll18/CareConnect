@@ -76,11 +76,11 @@ const MyAppointment = () => {
 					}
 				} catch (error) {
 					console.log(error)
-<<<<<<<<< Temporary merge branch 1
+
 					toast.error(data.message)
-=========
+
 					toast.error(error.message)
->>>>>>>>> Temporary merge branch 2
+
 					
 				}
 			}
