@@ -7,27 +7,51 @@ import { AppContext } from "../context/AppContext";
 
 const Myprofile = () => {
  
-  const [userData,setUserData]=useContext(AppContext)
+  const {userData,setUserData,token,loadUserProfileData}=useContext(AppContext)
+
   const [image,setImage]=useState(false)
 
   const [isEdit, setIsEdit] = useState(false);
 
+  const updatedUserProfileData= async()=>{
+    try{
+      const formData=new FormData
+    formData.append('name',userData.name)
+    formData.append('phone',userData.phone)
+    formData.append('address',JSON.stringify(userData.address))
+   formData.append('gender',userData.gender)
+    formData.append('DOB',userData.DOB)
+
+    image && formData.append('image',userData.image)
+    const {data}= await axios.post(backendUrl + '/api/user/update/profile',formData,{headers:{token}})
+
+    if(data.succcess){
+      toast.succcess(data.message)
+      await loadUserProfileData()
+      
+    }
+    }
+    catch(e){
+      console.log(e)
+    }
+  }
+
   return userData && (
 
 
-    <div className="max-w-lg mx-auto p-8 bg-white rounded-3xl shadow-2xl transform hover:scale-105 transition duration-300 text-grey-500">
+    <div className="max-w-lg mx-auto mt-10 p-8 bg-white rounded-3xl shadow-2xl transform hover:scale-105 transition duration-300 text-grey-500">
 
-      <div className="flex flex-col items-center">
+      <div className=" w-20  flex flex-col items-center">
       {
         isEdit
         ? <label htmlFor="image">
           <div className="inline-block relative cursor-pointer">
             <img  className="w-36 rounded opacity-75" src={image ? URL.createObjectURL(image) : userData.image}  />
-            <img  className="w-10 absolute bottom-12 right-12" src={image ? '' : assets.upload_icon} />
+            <img  className="w-10 absolute bottom-1 ml-5" src={image ? '' : assets.upload_icon} />
           </div>
           <input 
           onChange={(e)=>setImage(e.target.files[0])}
-          type="file" id="image" />
+          type="file" id="image" hidden />
         </label>
         : 
         <img
@@ -37,6 +61,8 @@ const Myprofile = () => {
         />
 
       }
+
+
         {isEdit ? (
           <input
             className="w-full px-4 py-2 border border-light-grey rounded-md focus:outline-none focus:border-primary text-center font-bold text-grey-100"

@@ -9,6 +9,7 @@ const AppContextProvider= (props) =>{
     const currencySymbol='$'
     const backendUrl=import.meta.env.VITE_BACKEND_URL
     const [doctors,setDoctors]=useState([])
+
     const [token,settoken]=useState(localStorage.getItem('token') ? localStorage.getItem('token') : false)
     const [userData,setUserData]=useState(false)
    
@@ -31,7 +32,10 @@ const AppContextProvider= (props) =>{
       const loadUserProfileData=async()=>{
         try{
 
-            const {data}=await axios.get(backendUrl + '/api/user/profile',{headers:token})
+            const {data}=await axios.get(backendUrl + '/api/user/profile',{headers:{token}})
+            
+            console.log("Token being sent:", token);
+
 
             if(data){
                 setUserData(data.userData)
