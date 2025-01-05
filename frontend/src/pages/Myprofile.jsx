@@ -4,6 +4,7 @@
 import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
+import toast from "react-hot-toast";
 
 const Myprofile = () => {
  
@@ -26,13 +27,19 @@ const Myprofile = () => {
     const {data}= await axios.post(backendUrl + '/api/user/update/profile',formData,{headers:{token}})
 
     if(data.succcess){
-      toast.succcess(data.message)
+      toast.success(data.message)
       await loadUserProfileData()
-      
+      setIsEdit(false)
+      setImage(false)
+
+    }
+    else{
+      toast.error(data.message)
     }
     }
     catch(e){
       console.log(e)
+      toast.error(e.message)
     }
   }
 
