@@ -1,33 +1,42 @@
 
 
 
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
+import { AppContext } from "../context/AppContext";
 
 const Myprofile = () => {
-  const [userData, setUserData] = useState({
-    name: "Aanchal Mahato",
-    image: assets.profile_pic,
-    email: "aanchal@gmail.com",
-    phone: "+91 23456-17855",
-    address: {
-      line1: "46, Champasari",
-      line2: "Block C",
-    },
-    gender: "Female",
-    DOB: "2002-04-18",
-  });
+ 
+  const [userData,setUserData]=useContext(AppContext)
+  const [image,setImage]=useState(false)
 
   const [isEdit, setIsEdit] = useState(false);
 
-  return (
+  return userData && (
+
+
     <div className="max-w-lg mx-auto p-8 bg-white rounded-3xl shadow-2xl transform hover:scale-105 transition duration-300 text-grey-500">
+
       <div className="flex flex-col items-center">
+      {
+        isEdit
+        ? <label htmlFor="image">
+          <div className="inline-block relative cursor-pointer">
+            <img  className="w-36 rounded opacity-75" src={image ? URL.createObjectURL(image) : userData.image}  />
+            <img  className="w-10 absolute bottom-12 right-12" src={image ? '' : assets.upload_icon} />
+          </div>
+          <input 
+          onChange={(e)=>setImage(e.target.files[0])}
+          type="file" id="image" />
+        </label>
+        : 
         <img
 
           src={userData.image}
           alt="Profile"
         />
+
+      }
         {isEdit ? (
           <input
             className="w-full px-4 py-2 border border-light-grey rounded-md focus:outline-none focus:border-primary text-center font-bold text-grey-100"
