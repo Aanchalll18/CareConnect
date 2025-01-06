@@ -1,5 +1,5 @@
 
-import validator, { isCurrency } from 'validator';
+import validator from 'validator';
 import userModel from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';

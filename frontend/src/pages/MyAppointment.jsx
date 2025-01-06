@@ -45,6 +45,42 @@ const MyAppointment = () => {
 			console.log(error);
 			toast.error(error.message)
 		}
+	};
+
+	const initPay = (order)=>{
+		const options={
+			key:import.meta.env.VITE_RAZORPAY_KEY_ID,
+			amount:order.amount,
+			currency:order.currency,
+			name:"Appointment Payment",
+			description:"Appointment Payment",
+			order_id:order.id,
+			receipt:order.receipt,
+			handler:async(response)=>{
+				console.log(response)
+			}
+		}
+		const rzp=new window.Razorpay(options)
+		rzp.open()
+
+	}
+
+	const appointmentRazorpay= async(appointmentId)=>{
+		try {
+			const {data}=await axios.post(backendUrl + '/api/user/payment-razorpay',{appointmentId},
+				{headers:{token}}
+			)
+			console.log("razorpay")
+			if(data.success){
+				console.log(data.order)
+				initPay(data.order)
+			}
+			
+		} catch (error) {
+			console.log(error);
+			toast.error(data.message)
+			
+		}
 	}
 
 	useEffect(() => {
@@ -99,7 +135,9 @@ const MyAppointment = () => {
 						<div className="flex justify-end mt-10">
 							<div className="flex flex-col gap-3 items-end">
 								{!item.cancelled && 
-								<button className="min-w-[6rem] px-4 py-1.5 bg-green2 text-white text-sm rounded-md font-medium hover:bg-lime-green  shadow-md transition-all duration-300">
+								<button 
+								onClick={()=>appointmentRazorpay(item._id)}
+								className="min-w-[6rem] px-4 py-1.5 bg-green2 text-white text-sm rounded-md font-medium hover:bg-lime-green  shadow-md transition-all duration-300">
 								Pay Online
 							</button>
 								}
