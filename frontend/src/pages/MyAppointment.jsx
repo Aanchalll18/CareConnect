@@ -72,6 +72,8 @@ const MyAppointment = () => {
 						navigate('/my-appointments')
 					}
 				} catch (error) {
+					console.log(error)
+					toast.error(data.message)
 					
 				}
 			}
