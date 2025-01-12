@@ -1,6 +1,6 @@
 
 
-
+import axios from "axios";
 import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { AppContext } from "../context/AppContext";
@@ -24,6 +24,7 @@ const Myprofile = () => {
     formData.append('DOB',userData.DOB)
 
     image && formData.append('image',userData.image)
+
     const {data}= await axios.post(backendUrl + '/api/user/update/profile',formData,{headers:{token}})
 
     if(data.succcess){
