@@ -9,10 +9,16 @@ const Navbar = () => {
 	//const [token, setToken] = useState(true);
 	const {token,settoken,userData}=useContext(AppContext)
 
-	const logout = ()=>{
-		settoken(false)
-		localStorage.removeItem('token')
-	}
+	// const logout = ()=>{
+	// 	settoken(false)
+	// 	localStorage.removeItem('token')
+	// }
+	const logout = () => {
+		settoken(false);
+		localStorage.removeItem('token');
+		navigate("/login"); // Redirect to login page
+	};
+	
 
 	return (
 		<div className="flex flex-row items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400">
@@ -74,7 +80,7 @@ const Navbar = () => {
 					</div>
 				) : (
 					<button
-						onClick={() => navigate("/login")}
+						onClick={()=>navigate('/login')}
 						className=" text-White bg-primary px-8 py-3 rounded-full font-light hidden md:block hover:bg-purple2"
 					>
 						Create account
@@ -165,3 +171,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

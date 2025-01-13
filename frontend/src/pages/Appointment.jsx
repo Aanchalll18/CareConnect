@@ -6,7 +6,7 @@ import RelatedDoctors from "../components/RelatedDoctors";
 
 const Appointment = () => {
 	const { id } = useParams();
-	const { doctors, currencySymbol } = useContext(AppContext);
+	const { doctors, currencySymbol,backendUrl,token,getAllDoctorsData } = useContext(AppContext);
 
 	const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
@@ -63,6 +63,13 @@ const Appointment = () => {
 			setDocSlot((prev) => [...prev, timeSlots]);
 		}
 	};
+
+	const bookAppointment= async() =>{
+		if(!token){
+			toast.warn('Login to book appointment')
+			return Navigate('/login')
+		}
+	}
 
 	useEffect(() => {
 		fetchedDocInfo();
@@ -159,6 +166,7 @@ const Appointment = () => {
 						))}
 				</div>
 				<button
+				onClick={bookAppointment}
 				className="bg-purple2 text-white text-sm font-light px-4 py-3 rounded-full my-6"
 				>Book an appointment</button>
 			</div>

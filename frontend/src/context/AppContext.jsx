@@ -11,6 +11,7 @@ const AppContextProvider= (props) =>{
     const [doctors,setDoctors]=useState([])
 
     const [token,settoken]=useState(localStorage.getItem('token') ? localStorage.getItem('token') : false)
+    
     const [userData,setUserData]=useState(false)
    
     const getAllDoctorsData=async()=>{
@@ -51,7 +52,7 @@ const AppContextProvider= (props) =>{
       }
 
       const value={
-        doctors,
+        doctors,getAllDoctorsData,
         currencySymbol,
         token,
         settoken,
