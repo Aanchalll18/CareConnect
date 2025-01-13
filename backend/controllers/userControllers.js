@@ -121,29 +121,6 @@ const loginUser = async (req, res) => {
     }
 };
 
-// const getProfile =async(req,res) =>{
-//     try{
-//         const {userId}=req.body;
-
-//         const userData=await userModel.findById(userId).select('-password')
-
-
-//        console.log("updated user",userData)
-          
-
-//         return res.status(200).json({
-//             success:true,
-//             userData
-//         })
-//     }catch(e){
-//         console.log(e)
-//         return res.status(400).json({
-//             success:false,
-//             message:e.message
-//         })
-//     }
-// }
-
 const getProfile = async (req, res) => {
     try {
         const { userId } = req.body;
@@ -173,44 +150,6 @@ const getProfile = async (req, res) => {
     }
 };
 
-
-// const updateProfile =async(req,res)=>{
-//     try{
-//         const {userId,name,phone,address,DOB,gender}=req.body;
-//         const imageFile=req.file;
-
-//         if(!name || !phone || !DOB || !gender){
-//             return res.json({
-//                 success:false,
-//                 message:"Data Missing"
-//             })
-//         }
-//         await userModel.findByIdAndUpdate(userId,{name,address:JSON.parse(address),DOB,gender})
-
-//         if(imageFile){
-
-//             const imageFile=await clodinary.uploader.upload(imageFile.path,{resource_type:'image'})
-
-//             const imageURL=imageUpload.secure_url
-
-//             await userModel.findByIdAndUpdate(userId,{image:imageURL})
-
-//         }
-//         res.json({
-//             success:true,
-//             message:"succesfully updated the user value"
-//         })
-
-//     }
-//     catch(e){
-//         console.log(e)
-//         res.json({
-//             success:false,
-//             message:e.message
-//         })
-//     }
-// }
-
 const updateProfile = async (req, res) => {
     try {
       const { userId, name, phone, address, DOB, gender } = req.body;
@@ -223,7 +162,6 @@ const updateProfile = async (req, res) => {
         });
       }
   
-      // Update user details (except image)
       await userModel.findByIdAndUpdate(userId, {
         name,
         phone,
@@ -232,16 +170,13 @@ const updateProfile = async (req, res) => {
         gender,
       });
   
-      // Handle image upload if file exists
       if (imageFile) {
-        // Upload to Cloudinary
-       
         const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
           resource_type: "image",
          
         });
   
-        // Update image URL in the database
+       
         console.log("image updated")
         await userModel.findByIdAndUpdate(userId, { image: imageUpload.secure_url });
         console.log("image updated")
@@ -259,97 +194,11 @@ const updateProfile = async (req, res) => {
         error: error.message,
       });
     }
-  };
+};
 
-
-
-// const getProfile = async (req, res) => {
-//     try {
-//         const { id: userId } = req.user; // Extract userId from middleware
-
-//         // Validate userId
-//         if (!mongoose.Types.ObjectId.isValid(userId)) {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: "Invalid userId format",
-//             });
-//         }
-
-//         // Fetch user data excluding password
-//         const userData = await userModel.findById(userId).select("-password");
-//         if (!userData) {
-//             return res.status(404).json({
-//                 success: false,
-//                 message: "User not found",
-//             });
-//         }
-
-//         return res.status(200).json({
-//             success: true,
-//             userData,
-//         });
-//     } catch (e) {
-//         console.error("Error in getProfile:", e.message);
-//         return res.status(500).json({
-//             success: false,
-//             message: "Server error: " + e.message,
-//         });
-//     }
-// };
-
-
-
-
-// const updateProfile = async (req, res) => {
-//     try {
-//         console.log("Request Body:", req.body);
-//         console.log("File Information:", req.file);
-
-//         const { userId, name, phone, address, DOB, gender } = req.body;
-//         const imageFile = req.file;
-
-//         if (!userId || !name || !phone || !DOB || !gender) {
-//             return res.json({
-//                 success: false,
-//                 message: "Required fields are missing",
-//             });
-//         }
-
-//         const user = await userModel.findById(userId);
-//         if (!user) {
-//             return res.json({
-//                 success: false,
-//                 message: "User not found",
-//             });
-//         }
-
-//         const parsedAddress = typeof address === 'string' ? JSON.parse(address) : address;
-
-//         const updates = { name, address: parsedAddress, DOB, gender };
-
-//         if (imageFile) {
-//             console.log("Uploading image to Cloudinary...");
-//             const uploadedImage = await cloudinary.uploader.upload(imageFile.path, { resource_type: 'image' });
-//             console.log("Uploaded Image URL:", uploadedImage.secure_url);
-//             updates.image = uploadedImage.secure_url;
-//         }
-
-//         console.log("Updates:", updates);
-//         await userModel.findByIdAndUpdate(userId, updates);
-
-//         res.json({
-//             success: true,
-//             message: "User profile updated successfully",
-//         });
-//     } catch (e) {
-//         console.log("Error:", e);
-//         res.json({
-//             success: false,
-//             message: e.message,
-//         });
-//     }
-// };
-
+const bookAppointment=async(req,res)=>{
+    
+}
 
 
 export { registerUser,loginUser,getProfile,updateProfile };
