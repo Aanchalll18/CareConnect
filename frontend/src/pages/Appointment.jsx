@@ -90,7 +90,7 @@ const Appointment = () => {
 			if(data.success){
 				toast.success(data.message)
 				getAllDoctorsData()
-				navigate('/book-appointment')
+				navigate('/my-appointments')
 			}else{
 				toast.error(data.message)
 			}
