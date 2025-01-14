@@ -77,9 +77,13 @@ const Appointment = () => {
 		try{
 			const date=docSlot[slotIndex][0].datetime
 
-			let day=date.getDate()
-			let month=date.getMonth()
-			let year=date.getFullYear()
+			// let day=date.getDate()
+			// let month=date.getMonth()
+			// let year=date.getFullYear()
+
+			const day = date.getDate();
+        const month = date.getMonth() + 1; // Corrected
+        const year = date.getFullYear();
 
 			const slotDate=day + '-' + month + '-' + year
 			console.log(slotDate) 
@@ -100,6 +104,12 @@ const Appointment = () => {
 			toast.error(e.message)
 		}
 	}
+
+	
+	
+
+
+
 
 	useEffect(() => {
 		fetchedDocInfo();
