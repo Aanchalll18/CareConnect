@@ -9,10 +9,7 @@ const Navbar = () => {
 	//const [token, setToken] = useState(true);
 	const {token,settoken,userData}=useContext(AppContext)
 
-	// const logout = ()=>{
-	// 	settoken(false)
-	// 	localStorage.removeItem('token')
-	// }
+	
 	const logout = () => {
 		settoken(false);
 		localStorage.removeItem('token');
@@ -172,3 +169,87 @@ const Navbar = () => {
 
 export default Navbar;
 
+// import React, { useContext, useState } from "react";
+// import { assets } from "../assets/assets";
+// import { NavLink, useNavigate } from "react-router-dom";
+// import { AppContext } from "../context/AppContext";
+
+// const Navbar = () => {
+//   const navigate = useNavigate();
+//   const [showMenu, setShowMenu] = useState(false);
+//   const { token, settoken, userData } = useContext(AppContext);
+
+//   const logout = () => {
+//     settoken(false);
+//     localStorage.removeItem("token");
+//     navigate("/login");
+//   };
+
+//   console.log("Token:", token, "UserData:", userData);
+
+//   return (
+//     <div className="flex flex-row items-center justify-between text-sm py-4 mb-5 border-b border-b-gray-400">
+//       <img
+//         onClick={() => navigate("/")}
+//         className="w-60 cursor-pointer"
+//         src={assets.logo}
+//         alt="Logo"
+//       />
+
+//       <ul className="hidden md:flex items-start gap-5 font-medium">
+//         <NavLink to="/" className={({ isActive }) => (isActive ? "text-primary" : "text-black")}>
+//           <li className="py-1">HOME</li>
+//         </NavLink>
+//         <NavLink to="/doctors" className={({ isActive }) => (isActive ? "text-primary" : "text-black")}>
+//           <li className="py-1">ALL DOCTORS</li>
+//         </NavLink>
+//         <NavLink to="/about" className={({ isActive }) => (isActive ? "text-primary" : "text-black")}>
+//           <li className="py-1">ABOUT</li>
+//         </NavLink>
+//         <NavLink to="/contact" className={({ isActive }) => (isActive ? "text-primary" : "text-black")}>
+//           <li className="py-1">CONTACT</li>
+//         </NavLink>
+//       </ul>
+
+//       <div className="flex items-center gap-4">
+//         {token && userData ? (
+//           <div className="flex items-center gap-2 cursor-pointer group relative">
+//             <img className="w-8 rounded-full" src={userData.image} alt="User" />
+//             <img className="w-2.5" src={assets.dropdown_icon} alt="Dropdown Icon" />
+//             <div className="absolute top-full right-0 mt-2 text-base font-medium z-20 hidden group-hover:block bg-white shadow-md rounded-md">
+//               <div className="flex flex-col">
+//                 <p onClick={() => navigate("/my-profile")} className="px-4 py-2 hover:bg-gray cursor-pointer">
+//                   My Profile
+//                 </p>
+//                 <p onClick={() => navigate("/my-appointments")} className="px-4 py-2 hover:bg-gray cursor-pointer">
+//                   My Appointments
+//                 </p>
+//                 <p onClick={logout} className="px-4 py-2 hover:bg-gray cursor-pointer">
+//                   Logout
+//                 </p>
+//               </div>
+//             </div>
+//           </div>
+//         ) : (
+//           <button
+//             onClick={() => {
+//               console.log("Navigating to login...");
+//               navigate("/login");
+//             }}
+//             className="text-white bg-primary px-8 py-3 rounded-full font-light hidden md:block hover:bg-purple2"
+//           >
+//             Create Account
+//           </button>
+//         )}
+//         <img
+//           onClick={() => setShowMenu(true)}
+//           className="w-6 md:hidden"
+//           src={assets.menu_icon}
+//           alt="Menu Icon"
+//         />
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Navbar;

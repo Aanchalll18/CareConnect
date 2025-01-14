@@ -9,9 +9,10 @@ import axios from "axios";
 
 const Appointment = () => {
 	const { id } = useParams();
-	const { doctors, currencySymbol,backendUrl,token,getAllDoctorsData } = useContext(AppContext);
+	const { doctors, currencySymbol, backendUrl, token, getAllDoctorsData } =
+		useContext(AppContext);
 
-	 const navigate=useNavigate()
+	const navigate = useNavigate();
 
 	const daysOfWeek = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
 
@@ -56,7 +57,7 @@ const Appointment = () => {
 				let formattedTime = currentDate.toLocaleDateString([], {
 					hour: "2-digit",
 					minute: "2-digit",
-					hour12:true
+					hour12: true,
 				});
 
 				timeSlots.push({
@@ -69,47 +70,45 @@ const Appointment = () => {
 		}
 	};
 
-	const bookAppointment= async() =>{
-		if(!token){
-			toast.warn('Login to book appointment')
-			return navigate('/login')
+	const bookAppointment = async () => {
+		if (!token) {
+			toast.warn("Login to book appointment");
+			return navigate("/login");
 		}
-		try{
-			const date=docSlot[slotIndex][0].datetime
+		try {
+			console.log('hi')
+			const date = docSlot[slotIndex][0].datetime;
 
-			// let day=date.getDate()
-			// let month=date.getMonth()
-			// let year=date.getFullYear()
 
-			const day = date.getDate();
-        const month = date.getMonth() + 1; // Corrected
-        const year = date.getFullYear();
+			let day = date.getDate();
+			let month = date.getMonth() + 1; 
+			let year = date.getFullYear();
 
-			const slotDate=day + '-' + month + '-' + year
-			console.log(slotDate) 
-			console.log(id)
+			const slotDate = day + "-" + month + "-" + year;
+			console.log(slotDate);
+			console.log(id);
 
-			const {data}=await axios.post(backendUrl + '/api/user/book-appointment',{id,slotDate,slotTime},{headers:{token}})
+			const { data } = await axios.post(
+				backendUrl + "/api/user/book/appointment",
+				{ id, slotDate, slotTime },
+				{ headers: { token } }
+			);
 
-			if(data.success){
-				toast.success(data.message)
-				getAllDoctorsData()
-				navigate('/my-appointments')
-			}else{
-				toast.error(data.message)
+				
+			console.log('hello')
+			if (data.success) {
+				toast.success(data.message);
+				getAllDoctorsData();
+				navigate("/my-appointments");
+			} else {
+				toast.error(data.message);
 			}
+		} catch (e) {
+			console.log('in error')
+			console.log(e.message);
+			toast.error(e.message);
 		}
-		catch(e){
-			console.log(e)
-			toast.error(e.message)
-		}
-	}
-
-	
-	
-
-
-
+	};
 
 	useEffect(() => {
 		fetchedDocInfo();
@@ -194,23 +193,33 @@ const Appointment = () => {
 					{docSlot.length > 0 &&
 						docSlot[slotIndex]?.map((item, index) => (
 							<p
-								onClick={()=>setSlotTime(item.time)}
+								onClick={() => setSlotTime(item.time)}
 								className={`text-sm font-light flex-shrink-0 px-5 py-2 rounded-full cursor-pointer border border-gray-300 hover:bg-gray-100 
-									${item.time === slotTime ? 'bg-primary text-white' : 'text-grey-100 border border-grey-100'}`}
+									${
+										item.time === slotTime
+											? "bg-primary text-white"
+											: "text-grey-100 border border-grey-100"
+									}`}
 								key={index}
 							>
-								{new Date(item.time).toLocaleTimeString([], { 
-									hour: '2-digit', 
-									minute:'2-digit' })}
+								{new Date(item.time).toLocaleTimeString([], {
+									hour: "2-digit",
+									minute: "2-digit",
+								})}
 							</p>
 						))}
 				</div>
 				<button
-				onClick={bookAppointment}
-				className="bg-purple2 text-white text-sm font-light px-4 py-3 rounded-full my-6"
-				>Book an appointment</button>
+					onClick={bookAppointment}
+					className="bg-purple2 text-white text-sm font-light px-4 py-3 rounded-full my-6"
+				>
+					Book an appointment
+				</button>
 			</div>
-			<RelatedDoctors docId={id} speciality={doctor.speciality}></RelatedDoctors>
+			<RelatedDoctors
+				docId={id}
+				speciality={doctor.speciality}
+			></RelatedDoctors>
 		</div>
 	);
 };
