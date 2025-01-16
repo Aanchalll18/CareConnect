@@ -85,8 +85,7 @@ const Appointment = () => {
 			let year = date.getFullYear();
 
 			const slotDate = day + "-" + month + "-" + year;
-			console.log(slotDate);
-			//console.log(id);
+			
 
 			const { data } = await axios.post(
 				backendUrl + "/api/user/book/appointment",
@@ -94,7 +93,6 @@ const Appointment = () => {
 				{ headers: { token } }
 			);
 
-			console.log("hello");
 			if (data.success) {
 				toast.success(data.message);
 				getAllDoctorsData();
