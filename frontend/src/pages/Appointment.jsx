@@ -86,16 +86,16 @@ const Appointment = () => {
 			setDocSlot((prev) => [...prev, timeSlots]); // Append slots for the day
 		}
 	
-		console.log("Final docSlot:", docSlot); // Debugging
+		
 	};
-	
+
 	const bookAppointment = async () => {
 		if (!token) {
 			toast.warn("Login to book appointment");
 			return navigate("/login");
 		}
 		try {
-			console.log("hi");
+			//console.log("hi");
 			const date = docSlot[slotIndex][0].datetime;
 
 			let day = date.getDate();
