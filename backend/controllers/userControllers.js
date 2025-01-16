@@ -269,23 +269,56 @@ const bookAppointment = async (req, res) => {
     }
 };
 
-const listAppointment= async(req,res) =>{
-    try{
-        const {userId} =req.body;
-        const appointments=await appointmentModel.find({userId})
+// const listAppointment= async(req,res) =>{
+//     try{
+//         const {userId} =req.body;
+//         const appointments=await appointmentModel.find({userId})
+
+//         res.json({
+//             success:true,
+//             appointments
+//         })
+//     }catch(e){
+//         console.log(e)
+//         res.json({
+//             success:false,
+//             message:e.message
+//         })
+//     }
+// }
+
+const listAppointment = async (req, res) => {
+    try {
+        const { userId } = req.body;
+        
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: "User ID is required"
+            });
+        }
+
+        const appointments = await appointmentModel.find({ userId });
+
+        if (!appointments.length) {
+            return res.status(404).json({
+                success: false,
+                message: "No appointments found for this user"
+            });
+        }
 
         res.json({
-            success:true,
+            success: true,
             appointments
-        })
-    }catch(e){
-        console.log(e)
-        res.json({
-            success:false,
-            message:e.message
-        })
+        });
+    } catch (e) {
+        console.error(e);
+        console.log(e.message)
+        res.status(500).json({
+            success: false,
+            message: e.message || "Internal Server Error"
+        });
     }
-}
-
+};
 
 export { registerUser,loginUser,getProfile,updateProfile ,bookAppointment,listAppointment};

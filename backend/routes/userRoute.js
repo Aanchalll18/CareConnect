@@ -10,6 +10,6 @@ userRoute.post('/login',loginUser)
 userRoute.get('/profile',authUser,getProfile)
 userRoute.post('/update/profile',upload.single('image'),authUser,updateProfile)
 userRoute.post('/book/appointment',authUser,bookAppointment)
-userRoute.get('/list/appointments',authUser,listAppointment)
+userRoute.get('/appointments',authUser,listAppointment)
 
 export default userRoute;
