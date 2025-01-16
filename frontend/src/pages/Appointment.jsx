@@ -89,8 +89,6 @@ const Appointment = () => {
 		console.log("Final docSlot:", docSlot); // Debugging
 	};
 	
-
-	
 	const bookAppointment = async () => {
 		if (!token) {
 			toast.warn("Login to book appointment");
