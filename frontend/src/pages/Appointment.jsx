@@ -60,17 +60,37 @@ const Appointment = () => {
 					hour12: true,
 				});
 
-				timeSlots.push({
-					datetime: new Date(currentDate),
-					time: formattedTime,
-				});
 
-				currentDate.setMinutes(currentDate.getMinutes() + 30);
+				let day = currentDate.getDate();
+				let month = currentDate.getMonth() + 1;
+				let year = currentDate.getFullYear();
+
+				const slotDate = `${day}-${month}-${year}`; // Defined here
+				const slotTime=formattedTime
+	
+				const isSlotAvailable = 
+					doctor?.slots_booked?.[slotDate] &&
+					doctor?.slots_booked?.[slotDate]?.includes(slotTime) ? false :true
+				
+	
+				if (isSlotAvailable) {
+					timeSlots.push({
+						datetime: new Date(currentDate),
+						time: formattedTime,
+					});
+				}
+	
+				currentDate.setMinutes(currentDate.getMinutes() + 30); // Increment by 30 minutes
 			}
-			setDocSlot((prev) => [...prev, timeSlots]);
+	
+			setDocSlot((prev) => [...prev, timeSlots]); // Append slots for the day
 		}
+	
+		console.log("Final docSlot:", docSlot); // Debugging
 	};
+	
 
+	
 	const bookAppointment = async () => {
 		if (!token) {
 			toast.warn("Login to book appointment");
@@ -85,7 +105,6 @@ const Appointment = () => {
 			let year = date.getFullYear();
 
 			const slotDate = day + "-" + month + "-" + year;
-			
 
 			const { data } = await axios.post(
 				backendUrl + "/api/user/book/appointment",
