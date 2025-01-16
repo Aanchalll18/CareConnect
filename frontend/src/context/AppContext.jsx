@@ -1,5 +1,4 @@
 import { createContext, useEffect, useState } from "react";
-
 import axios from 'axios'
 import {toast} from 'react-toastify'
 
@@ -39,7 +38,7 @@ const AppContextProvider= (props) =>{
             console.log("Token being sent:", token);
 
 
-            if(data){
+            if(data.success){
                 setUserData(data.userData)
             }else{
                 toast.error(data.message)

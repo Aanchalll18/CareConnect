@@ -64,6 +64,7 @@ const Appointment = () => {
 					datetime: new Date(currentDate),
 					time: formattedTime,
 				});
+
 				currentDate.setMinutes(currentDate.getMinutes() + 30);
 			}
 			setDocSlot((prev) => [...prev, timeSlots]);
@@ -76,17 +77,16 @@ const Appointment = () => {
 			return navigate("/login");
 		}
 		try {
-			console.log('hi')
+			console.log("hi");
 			const date = docSlot[slotIndex][0].datetime;
 
-
 			let day = date.getDate();
-			let month = date.getMonth() + 1; 
+			let month = date.getMonth() + 1;
 			let year = date.getFullYear();
 
 			const slotDate = day + "-" + month + "-" + year;
 			console.log(slotDate);
-			console.log(id);
+			//console.log(id);
 
 			const { data } = await axios.post(
 				backendUrl + "/api/user/book/appointment",
@@ -94,8 +94,7 @@ const Appointment = () => {
 				{ headers: { token } }
 			);
 
-				
-			console.log('hello')
+			console.log("hello");
 			if (data.success) {
 				toast.success(data.message);
 				getAllDoctorsData();
@@ -104,9 +103,14 @@ const Appointment = () => {
 				toast.error(data.message);
 			}
 		} catch (e) {
-			console.log('in error')
-			console.log(e.message);
-			toast.error(e.message);
+			console.log("Error Data:", e.response?.data);
+
+			if (e.response) {
+				const errorMessage = e.response.data.message || "An error occurred";
+				toast.error(errorMessage);
+			} else {
+				toast.error("Unexpected error occurred");
+			}
 		}
 	};
 
