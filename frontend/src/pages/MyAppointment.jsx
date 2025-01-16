@@ -9,7 +9,6 @@ const MyAppointment = () => {
 
 	const [appointments,setAppointments]=useState([])
 
-	
 
 	const getUserAppointments = async () => {
 		try {
