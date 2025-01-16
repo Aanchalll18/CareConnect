@@ -9,28 +9,15 @@ const MyAppointment = () => {
 
 	const [appointments,setAppointments]=useState([])
 
-	// const getUserAppointments=async()=>{
-	// 	try {
-	// 		const {data}=await axios.get(backedUrl + '/api/user/list/appointments',
-	// 			{headers: {token}})
-
-	// 		if(data.success){
-	// 			setAppointments(data.appointments.reverse())
-	// 			console.log(data.appointments)
-	// 		}	
-
-	// 	} catch (error) {
-	// 		console.log(error)
-	// 		toast.error(error.message)
-	// 	}
-	// }
+	
 
 	const getUserAppointments = async () => {
 		try {
-			const { data } = await axios.get(backedUrl + '/api/user/appointments', {
+			const { data } = await axios.get(backedUrl + '/api/user/appointments', 
+				{
 				headers: { token }
 			});
-	
+			console.log(data)
 			if (data.success) {
 				setAppointments(data.appointments.reverse());
 				console.log(data.appointments);

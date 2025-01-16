@@ -290,15 +290,18 @@ const bookAppointment = async (req, res) => {
 const listAppointment = async (req, res) => {
     try {
         const { userId } = req.body;
-        
+
         if (!userId) {
             return res.status(400).json({
                 success: false,
                 message: "User ID is required"
             });
         }
+        console.log(userId)
 
         const appointments = await appointmentModel.find({ userId });
+
+        console.log(appointments)
 
         if (!appointments.length) {
             return res.status(404).json({
