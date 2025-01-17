@@ -28,6 +28,24 @@ const MyAppointment = () => {
 		}
 	};
 
+	const cancelappointment=async(appointmentId) =>{
+		try {
+			const {data}=await axios.post(backendUrl + '/api/user/cancel/appointment',{appointmentId},{headers:{token}})
+
+			if(data.success){
+				toast.success(data.message)
+				getUserAppointments()
+			}
+			else{
+				toast.error(data.message)
+			}
+			
+		} catch (error) {
+			console.log(error);
+			toast.error(error.message)
+		}
+	}
+
 	useEffect(() => {
 		if (token) {
 			getUserAppointments();
@@ -79,12 +97,29 @@ const MyAppointment = () => {
 
 						<div className="flex justify-end mt-10">
 							<div className="flex flex-col gap-3 items-end">
+								{!item.cancelled && 
 								<button className="min-w-[6rem] px-4 py-1.5 bg-green2 text-white text-sm rounded-md font-medium hover:bg-lime-green  shadow-md transition-all duration-300">
-									Pay Online
-								</button>
-								<button className="min-w-[6rem] px-4 py-1.5 bg-red3 text-white text-sm rounded-md font-medium hover:bg-red2 shadow-md transition-all duration-300">
+								Pay Online
+							</button>
+								}
+								
+								{!item.cancelled &&
+								<button 
+								onClick={()=>cancelappointment(item._id)}
+								className="min-w-[6rem] px-4 py-1.5 bg-red3 text-white text-sm rounded-md font-medium hover:bg-red2 shadow-md transition-all duration-300">
 									Cancel Appointment
 								</button>
+								}
+								{item.cancelled &&
+								 <button
+								 className="text-red3border border-red3"
+							   >
+								 Appointment Cancelled
+							   </button>
+							   
+							   
+								}
+								
 							</div>
 						</div>
 					</div>

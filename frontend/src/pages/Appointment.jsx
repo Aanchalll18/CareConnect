@@ -29,7 +29,7 @@ const Appointment = () => {
 
 		const foundDoctor = doctors.find((doc) => String(doc._id) === String(id));
 		setDocInfo(foundDoctor);
-		console.log("Found doctor:", foundDoctor);
+		//console.log("Found doctor:", foundDoctor);
 	};
 
 	const getAvailableSlots = async () => {
