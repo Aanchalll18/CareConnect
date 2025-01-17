@@ -420,9 +420,26 @@ const verifyapi=async(req,res)=>{
         const {razorpay_order_id}=req.body;
         const orderinfo=await razorpayInstance.orders.fetch(razorpay_order_id)
         console.log(orderinfo);
+
+        if(orderinfo.status === 'paid'){
+            await appointmentModel.findByIdAndUpdate(orderinfo.receipt,
+                {payment:true}
+
+            )
+            res.json({succes:true,message:"payment successful"})
+        }else{
+            res.json({
+                success:false,
+                message:e.message
+            })
+        }
         
     } catch (error) {
-        
+        console.log(error);
+        return res.status(400).json({
+            success:false,
+            message:"payment failed"
+        })
     }
 }
 
