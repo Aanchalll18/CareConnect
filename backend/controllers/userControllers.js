@@ -414,4 +414,13 @@ const paymentRazorpay= async(req,res) =>{
     }
 }
 
+// api to  verify payment
+const verifyapi=async()=>{
+    try {
+        
+    } catch (error) {
+        
+    }
+}
+
 export { registerUser,loginUser,getProfile,updateProfile ,bookAppointment,listAppointment,cancelAppointment,paymentRazorpay};
