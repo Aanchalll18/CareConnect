@@ -425,4 +425,4 @@ const verifyapi=async(req,res)=>{
     }
 }
 
-export { registerUser,loginUser,getProfile,updateProfile ,bookAppointment,listAppointment,cancelAppointment,paymentRazorpay};
+export { registerUser,loginUser,getProfile,updateProfile ,bookAppointment,listAppointment,cancelAppointment,paymentRazorpay,verifyapi};
