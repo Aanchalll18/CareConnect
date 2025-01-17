@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const MyAppointment = () => {
-	const { backendUrl, token } = useContext(AppContext);
+	const { backendUrl, token ,getAllDoctorsData} = useContext(AppContext);
 
 	const [appointments, setAppointments] = useState([]);
 
@@ -13,10 +13,10 @@ const MyAppointment = () => {
 			const { data } = await axios.get(backendUrl + "/api/user/appointments", {
 				headers: { token },
 			});
-			//console.log(data)
+			console.log(data)
 			if (data.success) {
 				setAppointments(data.appointments.reverse());
-				//console.log(data.appointments);
+				console.log(data.appointments);
 			} else {
 				toast.error("Failed to fetch appointments");
 			}
@@ -35,6 +35,7 @@ const MyAppointment = () => {
 			if(data.success){
 				toast.success(data.message)
 				getUserAppointments()
+				getAllDoctorsData()
 			}
 			else{
 				toast.error(data.message)
@@ -112,10 +113,13 @@ const MyAppointment = () => {
 								}
 								{item.cancelled &&
 								 <button
-								 className="text-red3border border-red3"
+								 className="sm:min-w-48 py-2 border 
+								 text-red3 border-red3 rounded "
+								 aria-label="Appointment has been cancelled"
 							   >
 								 Appointment Cancelled
 							   </button>
+							   
 							   
 							   
 								}

@@ -295,7 +295,7 @@ const listAppointment = async (req, res) => {
 
         res.json({
             success: true,
-            // appointments
+             appointments
         });
     } catch (e) {
         console.error(e);
