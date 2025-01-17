@@ -1,5 +1,5 @@
 
-import validator from 'validator';
+import validator, { isCurrency } from 'validator';
 import userModel from '../models/userModel.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -394,7 +394,16 @@ const paymentRazorpay= async(req,res) =>{
                 message:"Appointment not found"
             })
         }
-
+        const options={
+            amount:appointmentData.amount*100,
+            currency:process.env.CURRENCY,
+            receipt:appointmentId
+        }
+        const order=await razorpayInstance.orders.create(options)
+        res.json({
+            success:true,
+            order
+        })
     }
     catch(e){
         console.log(error)
@@ -405,4 +414,4 @@ const paymentRazorpay= async(req,res) =>{
     }
 }
 
-export { registerUser,loginUser,getProfile,updateProfile ,bookAppointment,listAppointment,cancelAppointment};
+export { registerUser,loginUser,getProfile,updateProfile ,bookAppointment,listAppointment,cancelAppointment,paymentRazorpay};
