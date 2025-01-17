@@ -419,6 +419,7 @@ const verifyapi=async(req,res)=>{
     try {
         const {razorpay_order_id}=req.body;
         const orderinfo=await razorpayInstance.orders.fetch(razorpay_order_id)
+        console.log(orderinfo);
         
     } catch (error) {
         
