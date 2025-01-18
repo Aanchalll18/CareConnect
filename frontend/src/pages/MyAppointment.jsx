@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import axios from "axios";
 import { toast } from "react-toastify";
+import {useNavigate} from 'react-router-dom'
 
 const MyAppointment = () => {
 	const { backendUrl, token ,getAllDoctorsData} = useContext(AppContext);
 
 	const [appointments, setAppointments] = useState([]);
+
+	const navigate=useNavigate()
 
 	const getUserAppointments = async () => {
 		try {
@@ -58,6 +61,19 @@ const MyAppointment = () => {
 			receipt:order.receipt,
 			handler:async(response)=>{
 				console.log(response)
+
+				try {
+					const {data}=await axios.post(backendUrl + '/api/user/verifyapi',
+						{response},
+						{headers:token}
+					)
+					if(data.success){
+						getUserAppointments()
+						navigate('/my-appointments')
+					}
+				} catch (error) {
+					
+				}
 			}
 		}
 		const rzp=new window.Razorpay(options)
