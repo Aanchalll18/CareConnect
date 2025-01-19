@@ -74,12 +74,21 @@ const MyAppointment = () => {
 						getUserAppointments();
 						navigate("/my-appointments");
 					}
-				} catch (error) {}
-			},
-		};
-		const rzp = new window.Razorpay(options);
-		rzp.open();
-	};
+				} catch (error) {
+					console.log(error)
+<<<<<<<<< Temporary merge branch 1
+					toast.error(data.message)
+=========
+					toast.error(error.message)
+>>>>>>>>> Temporary merge branch 2
+					
+				}
+			}
+		}
+		const rzp=new window.Razorpay(options)
+		rzp.open()
+
+	}
 
 	// const appointmentRazorpay= async(appointmentId)=>{
 	// 	try {
