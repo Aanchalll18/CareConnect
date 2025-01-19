@@ -143,6 +143,7 @@ const loginAdmin=async(req,res)=>{
 const appointmentList=async(req,res)=>{
     try {
         const appointments=await appointmentModel.find({})
+        console.log(appointments);
         res.json({
             success:true,
             appointments
