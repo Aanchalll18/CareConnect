@@ -285,7 +285,7 @@ const listAppointment = async (req, res) => {
 
         const appointments = await appointmentModel.find({ userId });
 
-        //console.log(appointments)
+        console.log(appointments)
 
         if (!appointments.length) {
             return res.status(404).json({
