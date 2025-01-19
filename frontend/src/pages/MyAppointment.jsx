@@ -89,25 +89,6 @@ const MyAppointment = () => {
 		rzp.open()
 
 	}
-
-	// const appointmentRazorpay= async(appointmentId)=>{
-	// 	try {
-	// 		const {data}=await axios.post(backendUrl + '/api/user/payment-razorpay',{appointmentId},
-	// 		{headers:{token}}
-	// 		)
-	// 		console.log("razorpay")
-	// 		if(data.success){
-	// 			console.log(data.order)
-	// 			initPay(data.order)
-	// 		}
-
-	// 	} catch (error) {
-	// 		console.log(error);
-	// 		toast.error(data.message)
-
-	// 	}
-	// }
-
 	const appointmentRazorpay = async (appointmentId) => {
 		try {
 			const { data } = await axios.post(
