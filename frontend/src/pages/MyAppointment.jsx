@@ -63,9 +63,9 @@ const MyAppointment = () => {
 				console.log(response)
 
 				try {
-					const {data}=await axios.post(backendUrl + '/api/user/verifyapi',
+					const {data}=await axios.post(backendUrl + '/api/user/verifyRazorpay',
 						{response},
-						{headers:token}
+						{headers:{token}}
 					)
 					if(data.success){
 						getUserAppointments()
@@ -73,7 +73,7 @@ const MyAppointment = () => {
 					}
 				} catch (error) {
 					console.log(error)
-					toast.error(data.message)
+					toast.error(error.message)
 					
 				}
 			}
@@ -83,23 +83,46 @@ const MyAppointment = () => {
 
 	}
 
-	const appointmentRazorpay= async(appointmentId)=>{
-		try {
-			const {data}=await axios.post(backendUrl + '/api/user/payment-razorpay',{appointmentId},
-				{headers:{token}}
-			)
-			console.log("razorpay")
-			if(data.success){
-				console.log(data.order)
-				initPay(data.order)
-			}
+	// const appointmentRazorpay= async(appointmentId)=>{
+	// 	try {
+	// 		const {data}=await axios.post(backendUrl + '/api/user/payment-razorpay',{appointmentId},
+	// 		{headers:{token}}
+	// 		)
+	// 		console.log("razorpay")
+	// 		if(data.success){
+	// 			console.log(data.order)
+	// 			initPay(data.order)
+	// 		}
 			
+	// 	} catch (error) {
+	// 		console.log(error);
+	// 		toast.error(data.message)
+			
+	// 	}
+	// }
+
+	const appointmentRazorpay = async (appointmentId) => {
+		try {
+			const { data } = await axios.post(
+				backendUrl + '/api/user/payment-razorpay',
+				{ appointmentId },
+				{ headers: { token } }
+			);
+			console.log("razorpay");
+			if (data.success) {
+				console.log(data.order);
+				initPay(data.order);
+			}
 		} catch (error) {
 			console.log(error);
-			toast.error(data.message)
-			
+			if (error.response && error.response.data) {
+				toast.error(error.response.data.message);
+			} else {
+				toast.error("Something went wrong");
+			}
 		}
-	}
+	};
+	
 
 	useEffect(() => {
 		if (token) {
@@ -151,7 +174,19 @@ const MyAppointment = () => {
 						</div>
 
 						<div className="flex justify-end mt-10">
+
 							<div className="flex flex-col gap-3 items-end">
+							{
+								!item.cancelled &&
+								item.payment && 
+								<button
+									className="min-w-[6rem] px-4 py-1.5 bg-green2 text-white text-sm rounded-md font-medium "
+								>
+									paid
+
+								</button>
+							}
+
 								{!item.cancelled && 
 								<button 
 								onClick={()=>appointmentRazorpay(item._id)}
