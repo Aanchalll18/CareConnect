@@ -158,7 +158,66 @@ const appointmentList=async(req,res)=>{
     }
 }
 
-export { addDoctor,loginAdmin ,allDoctors,appointmentList};
+// api for cancelling the appointment
+const AppointmentCancel = async (req, res) => {
+    try {
+        const {  appointmentId } = req.body;
+
+      
+
+        // Fetch appointment details
+        const appointmentData = await appointmentModel.findById(appointmentId).lean();
+        if (!appointmentData) {
+            return res.status(404).json({
+                success: false,
+                message: 'Appointment not found',
+            });
+        }
+
+        // Check authorization
+        if (String(appointmentData.userId) !== userId) {
+            return res.status(403).json({
+                success: false,
+                message: 'Unauthorized action',
+            });
+        }
+
+        // Cancel the appointment
+        await appointmentModel.findByIdAndUpdate(appointmentId, { cancelled: true });
+
+        const { docId, slotDate, slotTime } = appointmentData;
+
+        // Fetch doctor details
+        const doctorData = await doctorModel.findById(docId).lean();
+        if (!doctorData) {
+            return res.status(404).json({
+                success: false,
+                message: 'Doctor not found',
+            });
+        }
+
+        let { slots_booked } = doctorData;
+        if (slots_booked[slotDate]) {
+            slots_booked[slotDate] = slots_booked[slotDate].filter((e) => e !== slotTime);
+
+            // Update doctor's slots
+            await doctorModel.findOneAndUpdate({ _id: docId }, { slots_booked });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: 'Appointment cancelled successfully',
+        });
+    } catch (error) {
+        console.error('Error in cancelAppointment:', error);
+        return res.status(500).json({
+            success: false,
+            message: 'An error occurred while cancelling the appointment',
+        });
+    }
+};
+
+export { addDoctor,loginAdmin ,allDoctors,appointmentList,AppointmentCancel};
 
 
 
