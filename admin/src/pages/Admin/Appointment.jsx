@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react';
 import { AdminContext} from '../../context/AdminContext';
 import {AppContext} from '../../context/AppContext'
+import {assets} from '../../assets/assets.js'
 
 const Appointment = () => {
   const { aToken, appointments, getAllAppointments } = useContext(AdminContext);
   
-  const {calculateAge}=useContext(AppContext)
+  const {calculateAge,curreny}=useContext(AppContext)
 
   useEffect(() => {
     if (aToken) {
@@ -46,9 +47,9 @@ const Appointment = () => {
               <p>{item.userData.name}</p>
               <p className='max-sm:hidden'>{calculateAge(item.userData.DOB)}</p>
               <p>{item.slotTime}</p>
-              <p>{item.doctor}</p>
-              <p>{item.fees}</p>
-              <p></p>
+              <p>{item.docData.name}</p>
+              <p>{curreny}{item.docData.fees}</p>
+              <img src={assets.cancel_icon} alt="" />
             </div>
           </div>
         ))}
