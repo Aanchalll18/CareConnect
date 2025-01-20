@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { AdminContext } from "../../context/AdminContext";
 import { AppContext } from "../../context/AppContext";
 import { assets } from "../../assets/assets.js";
+// import { cancelAppointment } from "../../../../backend/controllers/userControllers.js";
 
 const Appointment = () => {
 	const { aToken, appointments, getAllAppointments } = useContext(AdminContext);
@@ -56,6 +57,7 @@ const Appointment = () => {
                 <p className="text-red-700">Cancelled</p>
                 :
                 <img
+               
 								className="rounded-full cursor-pointer hover:bg-red-400"
 								src={assets.cancel_icon}
 								alt="Cancel Icon"

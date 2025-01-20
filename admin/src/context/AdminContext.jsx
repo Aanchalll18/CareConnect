@@ -2,6 +2,7 @@
 import { createContext, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { cancelAppointment } from "../../../backend/controllers/userControllers";
 
 export const AdminContext = createContext();
 
@@ -75,6 +76,20 @@ const AdminContextProvider = (props) => {
       }
   };
   
+  // const CancelAppointment=async(appointmentId) =>{
+  //   try {
+  //     const {data}=await axios.post(backendUrl + '/api/admin/cancel-appointment',{appointmentId},{headers:{aToken}})
+  //   if(data.success){
+  //     toast.success(data.message)
+  //   }else{
+  //     console.log(data.message)
+  //     toast.error(data.message)
+  //   }
+  //   } catch (error) {
+  //     console.log(error)
+  //     toast.error(e.message)
+  //   }
+  // }
       
     
 	const value = {
@@ -86,7 +101,8 @@ const AdminContextProvider = (props) => {
     changeAvailability,
     appointments,
     setappointments,
-    getAllAppointments
+    getAllAppointments,
+    //CancelAppointment
 	};
 	return (
 		<AdminContext.Provider value={value}>
