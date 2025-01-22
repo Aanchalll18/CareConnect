@@ -20,24 +20,27 @@ const Dashboard = () => {
 						<img className="w-14" src={assets.doctor_icon} alt="" />
 						<div>
 							<p className="text-xl font-semibold text-gray-600">{dashdata.doctors}</p>
-							<p>Doctors</p>
+							<p className="text-gray-400">Doctors</p>
 						</div>
 					</div>
 					<div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-gray-100 cursor-pointer hover:scale-105 transition-all">
 						<img className="w-14" src={assets.patients_icon} alt="" />
 						<div>
 							<p className="text-xl font-semibold text-gray-600">{dashdata.patients}</p>
-							<p>Patients</p>
+							<p className="text-gray-400">Patients</p>
 						</div>
 					</div>
 					<div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-gray-100 cursor-pointer hover:scale-105 transition-all">
 						<img className="w-14" src={assets.appointments_icon} alt="" />
 						<div>
 							<p className="text-xl font-semibold text-gray-600">{dashdata.appointments}</p>
-							<p>Appointments</p>
+							<p className="text-gray-400">Appointments</p>
 						</div>
 					</div>
 				</div>
+        <div>
+          
+        </div>
 			</div>
 		)
 	);
