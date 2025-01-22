@@ -6,7 +6,11 @@ import jwt from 'jsonwebtoken';
 import {v2 as cloudinary} from 'cloudinary'
 import doctorModel from '../models/doctorModel.js';
 import appointmentModel from '../models/appointmentModel.js';
-import razorpay from 'razorpay'
+//import Razorpay from 'razorpay'
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+const Razorpay = require('razorpay');
+
 
 
 const registerUser = async (req, res) => {
@@ -372,7 +376,7 @@ const cancelAppointment = async (req, res) => {
     }
 };
 
-const razorpayInstance=new razorpay({
+const razorpayInstance=new Razorpay({
     key_id:process.env.RAZORPAY_KEY_ID,
     key_secret:process.env.RAZORPAY_KEY_SECRET
 })
