@@ -1,11 +1,46 @@
-import React from 'react'
+import React, { useContext, useEffect } from "react";
+import { AdminContext } from "../../context/AdminContext";
+import { assets } from "../../assets/assets";
 
 const Dashboard = () => {
-  return (
-    <div>
-      d
-    </div>
-  )
-}
+	const { aToken, getdashData, dashdata, cancelappointment } =
+		useContext(AdminContext);
 
-export default Dashboard
+	useEffect(() => {
+		if (aToken) {
+			getdashData();
+		}
+	}, [aToken]);
+
+	return (
+		dashdata && (
+			<div className="m-5">
+				<div className="flex flex-wrap gap-3">
+					<div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-gray-100 cursor-pointer hover:scale-105 transition-all">
+						<img className="w-14" src={assets.doctor_icon} alt="" />
+						<div>
+							<p className="text-xl font-semibold text-gray-600">{dashdata.doctors}</p>
+							<p>Doctors</p>
+						</div>
+					</div>
+					<div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-gray-100 cursor-pointer hover:scale-105 transition-all">
+						<img className="w-14" src={assets.patients_icon} alt="" />
+						<div>
+							<p className="text-xl font-semibold text-gray-600">{dashdata.patients}</p>
+							<p>Patients</p>
+						</div>
+					</div>
+					<div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-gray-100 cursor-pointer hover:scale-105 transition-all">
+						<img className="w-14" src={assets.appointments_icon} alt="" />
+						<div>
+							<p className="text-xl font-semibold text-gray-600">{dashdata.appointments}</p>
+							<p>Appointments</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		)
+	);
+};
+
+export default Dashboard;

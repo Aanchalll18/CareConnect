@@ -221,6 +221,7 @@ const AppointmentCancel = async (req, res) => {
 const admindashboard=async(req,res)=>{
     try{
         const doctors=await doctorModel.find({})
+        //const users=await userModel.find({})
         const users=await userModel.find({})
         const appointments=await appointmentModel.find({})
 
