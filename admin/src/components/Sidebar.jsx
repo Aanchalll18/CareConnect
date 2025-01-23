@@ -95,7 +95,7 @@ const Sidebar = () => {
               }`
             }
           >
-            <img src={assets.add_icon} alt="Add Doctor" className="w-5 h-5" />
+            <img src={assets.doctor_icon} alt="Add Doctor" className="w-5 h-5" />
             <p>Profile</p>
           </NavLink>
         </ul>
