@@ -86,5 +86,19 @@ const docappointment=async(req,res)=>{
     console.log(error)
     res.json({success:false,message:error.message})
   }
+};
+
+const appointmentComplete=async(req,res)=>{
+    try{
+        const {docId,appointmentid}=req.body
+        const appointmentData=appointmentModel.findById(appointmentId)
+    }
+    catch(e){
+      res.json({
+        success:false,
+        message:e.message
+      })
+    }
 }
+
 export { changeAvailablity ,doctorList,logindoctor,docappointment}
