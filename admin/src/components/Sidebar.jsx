@@ -21,7 +21,7 @@ const Sidebar = () => {
             }
           >
             <img src={assets.home_icon} alt="Dashboard" className="w-5 h-5" />
-            <p>Dashboard</p>
+            <p className='hidden md:block'>Dashboard</p>
           </NavLink>
 
           <NavLink
@@ -72,7 +72,7 @@ const Sidebar = () => {
             }
           >
             <img src={assets.home_icon} alt="Dashboard" className="w-5 h-5" />
-            <p>Dashboard</p>
+            <p className='hidden md:block'>Dashboard</p>
           </NavLink>
 
           <NavLink
