@@ -1,5 +1,7 @@
 
 import doctorModel from "../models/doctorModel.js";
+import bcrypt from 'bcrypt'
+import jwt from 'jsonwebtoken'
 
 const changeAvailablity = async (req, res) => {
   try {
@@ -24,4 +26,53 @@ const doctorList=async(req,res)=>{
   }
 }
 
-export { changeAvailablity ,doctorList}
+
+const logindoctor = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Validate input
+    if (!email || !password) {
+      return res.status(400).json({
+        success: false,
+        message: "Email and password are required.",
+      });
+    }
+
+    
+    const doctor = await doctorModel.findOne({ email }); 
+    if (!doctor) {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid credentials.",
+      });
+    }
+
+    
+    const isMatch = await bcrypt.compare(password, doctor.password);
+    if (isMatch) {
+      
+      const token = jwt.sign({ id: doctor._id }, process.env.JWT_SECRET, {
+        expiresIn: "1d", 
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: "Login successful.",
+        token,
+      });
+    } else {
+      return res.status(401).json({
+        success: false,
+        message: "Invalid credentials.",
+      });
+    }
+  } catch (error) {
+    console.error("Error in logindoctor:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Server error.",
+    });
+  }
+};
+export { changeAvailablity ,doctorList,logindoctor}
