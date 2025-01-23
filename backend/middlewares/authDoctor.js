@@ -1,10 +1,10 @@
 import jwt from "jsonwebtoken";
 
-const authUser = async (req, res, next) => {
+const authDoc = async (req, res, next) => {
     try {
        
-        const token = req.headers.token;
-        if (!token || typeof token !== "string") {
+        const dtoken = req.headers.dtoken;
+        if (!dtoken || typeof dtoken !== "string") {
             console.log("Token header missing or invalid");
             return res.status(401).json({
                 success: false,
@@ -12,9 +12,9 @@ const authUser = async (req, res, next) => {
             });
         }
 
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const decoded = jwt.verify(dtoken, process.env.JWT_SECRET);
 
-        req.body.userId = decoded.id;
+        req.body.docId = decoded.id;
 
         next(); 
     } catch (error) {
@@ -29,5 +29,5 @@ const authUser = async (req, res, next) => {
     }
 };
 
-export default authUser;
+export default authDoc;
 
