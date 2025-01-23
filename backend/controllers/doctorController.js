@@ -90,15 +90,56 @@ const docappointment=async(req,res)=>{
 
 const appointmentComplete=async(req,res)=>{
     try{
-        const {docId,appointmentid}=req.body
-        const appointmentData=appointmentModel.findById(appointmentId)
+        const {docId,appointmentId}=req.body
+        const appointmentData=await appointmentModel.findById(appointmentId)
+
+        if(appointmentData && appointmentData.docId === docId){
+          await appointmentModel.findByIdAndUpdate(appointmentId,{isCompleted:true})
+
+           return res.json({
+            success:true,
+            message:'Appointment Completed'
+          })
+        }else{
+          return res.json({
+            success:false,
+            message:'error while completing the appointment'
+          })
+        }
     }
     catch(e){
-      res.json({
+     return res.json({
         success:false,
         message:e.message
       })
     }
+};
+
+const appointmentCancel=async(req,res)=>{
+  try{
+      const {docId,appointmentId}=req.body
+      const appointmentData=await appointmentModel.findById(appointmentId)
+
+      if(appointmentData && appointmentData.docId === docId){
+        await appointmentModel.findByIdAndUpdate(appointmentId,{cancelled:true})
+
+         return res.json({
+          success:true,
+          message:'Appointment Cancelled'
+        })
+      }else{
+        return res.json({
+          success:false,
+          message:'error while cancelling the appointment'
+        })
+      }
+  }
+  catch(e){
+   return res.json({
+      success:false,
+      message:e.message
+    })
+  }
 }
 
-export { changeAvailablity ,doctorList,logindoctor,docappointment}
+export { changeAvailablity ,doctorList,logindoctor,docappointment,appointmentComplete,appointmentCancel}
