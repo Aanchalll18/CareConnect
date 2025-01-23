@@ -2,9 +2,11 @@ import React, { useContext } from 'react';
 import { AdminContext } from '../context/AdminContext';
 import { NavLink } from 'react-router-dom';
 import { assets } from '../assets/assets';
+import { DoctorContext } from '../context/DoctorContext';
 
 const Sidebar = () => {
   const { aToken } = useContext(AdminContext);
+  const {dToken}=useContext(DoctorContext)
 
   return (
     <div className="w-60 h-full shadow-md p-4">

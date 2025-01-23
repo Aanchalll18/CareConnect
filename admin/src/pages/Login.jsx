@@ -1,15 +1,16 @@
 
-
 import React, { useContext, useState } from 'react';
 import { AdminContext } from '../context/AdminContext';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { DoctorContext } from '../context/DoctorContext';
 
 const Login = () => {
-  const [state, setState] = useState('Admin');
+  const [state, setState] = useState('Admin'); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { setaToken, backendUrl } = useContext(AdminContext);
+  const { setDToken } = useContext(DoctorContext);
   const [loading, setLoading] = useState(false);
 
   const onSubmitHandler = async (event) => {
@@ -23,6 +24,7 @@ const Login = () => {
 
     try {
       setLoading(true);
+
       const loginUrl =
         state === 'Admin'
           ? `${backendUrl}/api/admin/login`
@@ -32,15 +34,24 @@ const Login = () => {
 
       if (data.success) {
         const tokenKey = state === 'Admin' ? 'aToken' : 'dToken';
+        console.log(tokenKey)
+        console.log(data.token)
+       
+
+       
         localStorage.setItem(tokenKey, data.token);
-        setaToken(data.token);
+        if (state === 'Admin') setaToken(data.token);
+        if (state === 'Doctor') setDToken(data.token);
+
         toast.success(`${state} Login successful!`);
       } else {
         toast.error(data.message || 'Login failed. Please try again.');
       }
-    } catch (e) {
-      console.error('Error during login:', e.message);
-      toast.error(e.response?.data?.message || 'An error occurred during login.');
+    } catch (error) {
+      console.error('Error during login:', error.message);
+      toast.error(
+        error.response?.data?.message || 'An error occurred during login.'
+      );
     } finally {
       setLoading(false);
     }
