@@ -56,19 +56,25 @@ const DoctorAppointment = () => {
           <p className="font-medium">Action</p>
         </div>
         <div className="sm:block bg-white max-h-[70vh] min-h-[50vh] overflow-y-auto">
-          {/* Add Appointment Rows Here */}
           {appointments && appointments.length > 0 ? (
-            appointments.map((appointment, index) => (
+            appointments.map((item, index) => (
               <div
-                key={appointment.id}
+                key={item.id}
                 className="grid grid-cols-[0.5fr_2fr_1fr_1fr_1.5fr_1fr_1fr] gap-4 items-center py-3 px-6 border-b hover:bg-gray-50"
               >
                 <p>{index + 1}</p>
-                <p>{appointment.patientName}</p>
-                <p>{appointment.paymentStatus}</p>
-                <p>{appointment.patientAge}</p>
-                <p>{appointment.dateTime}</p>
-                <p>{appointment.fees}</p>
+                <div>
+                    <img src={item.userData.image} alt="" />
+                    <p>{item.userData.name}</p>
+                </div>
+                <div>
+                    <p>
+                        {item.payment ? 'Online' : 'Cash'}
+                    </p>
+                </div>
+                <p>
+                    
+                </p>
                 <button className="text-red-500  border border-red-600 px-4 py-1 rounded-lg">
                   Cancel
                 </button>
@@ -84,3 +90,4 @@ const DoctorAppointment = () => {
 };
 
 export default DoctorAppointment;
+
