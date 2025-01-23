@@ -198,6 +198,24 @@ try {
     message:error.message
   })
 }
+};
+
+const updateDoctorProfile=async(req,res)=>{
+  try {
+
+    const {docId,fees,address,available}=req.body
+    await doctorModel.findByIdAndUpdate(docId,{fess,address,available})
+
+    res.json({succes:true,message:'Profile Updated'})
+    
+    
+  } catch (error) {
+    console.log(error)
+    res.json({
+      success:false,
+      error:error.message
+    })
+  }
 }
 
-export { changeAvailablity ,doctorList,logindoctor,docappointment,appointmentComplete,appointmentCancel,docDashboars,doctorProfile}
+export { changeAvailablity ,doctorList,logindoctor,docappointment,appointmentComplete,appointmentCancel,docDashboars,doctorProfile,updateDoctorProfile}
