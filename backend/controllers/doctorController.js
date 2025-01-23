@@ -2,6 +2,7 @@
 import doctorModel from "../models/doctorModel.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import appointmentModel from "../models/appointmentModel.js";
 
 const changeAvailablity = async (req, res) => {
   try {
@@ -15,6 +16,7 @@ const changeAvailablity = async (req, res) => {
     res.status(500).json({ success: false, message: e.message }); 
   }
 };
+
 const doctorList=async(req,res)=>{
   try{
       const doctors=await doctorModel.find({}).select("-password -email")
@@ -24,8 +26,7 @@ const doctorList=async(req,res)=>{
     console.log(e)
     res.json({success:false,message:e.message})
   }
-}
-
+};
 
 const logindoctor = async (req, res) => {
   try {
@@ -75,4 +76,15 @@ const logindoctor = async (req, res) => {
     });
   }
 };
-export { changeAvailablity ,doctorList,logindoctor}
+
+const docappointment=async(req,res)=>{
+  try {
+    const {docId}=req.body;
+    const appointments=await appointmentModel.find({docId})
+    res.json({success:true,appointments})
+  } catch (error) {
+    console.log(error)
+    res.json({success:false,message:error.message})
+  }
+}
+export { changeAvailablity ,doctorList,logindoctor,docappointment}
