@@ -200,4 +200,4 @@ try {
 }
 }
 
-export { changeAvailablity ,doctorList,logindoctor,docappointment,appointmentComplete,appointmentCancel,docDashboars}
+export { changeAvailablity ,doctorList,logindoctor,docappointment,appointmentComplete,appointmentCancel,docDashboars,doctorProfile}
