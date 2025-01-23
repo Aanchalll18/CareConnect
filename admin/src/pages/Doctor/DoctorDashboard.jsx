@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { DoctorContext } from '../../context/DoctorContext'
+import { assets } from '../../assets/assets'
 
 const DoctorDashboard = () => {
   const {dToken,dashData,setDashData,getDashData}=useContext(DoctorContext)
@@ -10,11 +11,14 @@ const DoctorDashboard = () => {
     }
   },[dToken])
 
-  return (
-    <div>
+  return dToken && (
+    <div className='m-5'>
+     
+          </div>
       
-    </div>
+    
   )
 }
 
 export default DoctorDashboard
+
