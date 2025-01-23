@@ -28,28 +28,12 @@ const DoctorContextProvider=(props)=>{
             toast.error(error.message)
         }
     };
+<<<<<<<<< Temporary merge branch 1
+=========
 
-
-    const completeAppointment=async(appointmentId)=>{
+    const completeAppointment=async()=>{
         try {
-            const {data}=await axios.post(backendUrl + '/api/doctor/complete-appointment',{appointmentId},{headers:{dToken}})
-
-            if(data.success){
-                toast.success(data.message)
-                getAppointments()
-            }else{
-                toast.error(data.message)
-            }
-            
-        } catch (error) {
-            toast.error(error.message)
-            console.log(error.message)
-        }
-    };
-
-    const cancelAppointment=async(appointmentId)=>{
-        try {
-            const {data}=await axios.post(backendUrl + '/api/doctor/cancel-appointment',{appointmentId},{headers:{dToken}})
+            const {data}=await axios.post(backendUrl + '/api/complete-appointment',{appointmentId},{headers:{dtoken}})
 
             if(data.success){
                 toast.success(data.message)
@@ -63,6 +47,7 @@ const DoctorContextProvider=(props)=>{
             console.log(error.message)
         }
     }
+>>>>>>>>> Temporary merge branch 2
 
         const value={
             dToken,setDToken,
