@@ -27,23 +27,6 @@ const DoctorContextProvider=(props)=>{
             console.log(error)
             toast.error(error.message)
         }
-    };
-
-    const completeAppointment=async()=>{
-        try {
-            const {data}=await axios.post(backendUrl + '/api/complete-appointment',{appointmentId},{headers:{dtoken}})
-
-            if(data.success){
-                toast.success(data.message)
-                getAppointments()
-            }else{
-                toast.error(data.message)
-            }
-            
-        } catch (error) {
-            toast.error(error.message)
-            console.log(error.message)
-        }
     }
 
         const value={
