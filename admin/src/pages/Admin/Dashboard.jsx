@@ -1,88 +1,9 @@
-// import React, { useContext, useEffect } from "react";
-// import { AdminContext } from "../../context/AdminContext";
-// import { assets } from "../../assets/assets";
-
-// const Dashboard = () => {
-// 	const { aToken, getdashData, dashdata, cancelappointment } =
-// 		useContext(AdminContext);
-
-// 	useEffect(() => {
-// 		if (aToken) {
-// 			getdashData();
-// 		}
-// 	}, [aToken]);
-
-// 	return (
-// 		dashdata && (
-// 			<div className="m-5">
-// 				<div className="flex flex-wrap gap-3">
-// 					<div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-gray-100 cursor-pointer hover:scale-105 transition-all">
-// 						<img className="w-14" src={assets.doctor_icon} alt="" />
-// 						<div>
-// 							<p className="text-xl font-semibold text-gray-600">
-// 								{dashdata.doctors}
-// 							</p>
-// 							<p className="text-gray-400">Doctors</p>
-// 						</div>
-// 					</div>
-// 					<div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-gray-100 cursor-pointer hover:scale-105 transition-all">
-// 						<img className="w-14" src={assets.patients_icon} alt="" />
-// 						<div>
-// 							<p className="text-xl font-semibold text-gray-600">
-// 								{dashdata.patients}
-// 							</p>
-// 							<p className="text-gray-400">Patients</p>
-// 						</div>
-// 					</div>
-// 					<div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-gray-100 cursor-pointer hover:scale-105 transition-all">
-// 						<img className="w-14" src={assets.appointments_icon} alt="" />
-// 						<div>
-// 							<p className="text-xl font-semibold text-gray-600">
-// 								{dashdata.appointments}
-// 							</p>
-// 							<p className="text-gray-400">Appointments</p>
-// 						</div>
-// 					</div>
-// 				</div>
-// 				<div className="bg-white">
-// 					<div className="flex ic gap-2.5 px-4 py-4 mt-10 rounded-t border">
-// 						<img src={assets.list_icon} alt="" />
-// 						<p>Latest Booking</p>
-// 					</div>
-// 					<div>
-// 						{dashdata.latestAppointments.map((item, index) => (
-// 							<div key={index}>
-// 								<img src={dashdata.docData.image} alt="" />
-// 								<div>
-// 									<p>{item.docData.name}</p>
-// 									<p>{item.slotTime}</p>
-// 								</div>
-// 								{item.cancelled ? (
-// 									<p className="text-red-700">Cancelled</p>
-// 								) : (
-// 									<img
-// 										onClick={() => cancelappointment(item._id)}
-// 										className="rounded-full cursor-pointer hover:bg-red-400"
-// 										src={assets.cancel_icon}
-// 										alt="Cancel Icon"
-// 									/>
-// 								)}
-// 							</div>
-// 						))}
-// 					</div>
-// 				</div>
-// 			</div>
-// 		)
-// 	);
-// };
-
-// export default Dashboard;
 import React, { useContext, useEffect } from "react";
 import { AdminContext } from "../../context/AdminContext";
 import { assets } from "../../assets/assets";
 
 const StatCard = ({ icon, label, value }) => (
-	<div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-gray-100 cursor-pointer hover:scale-105 transition-all">
+	<div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-gray-100 cursor-pointer transition-all transform hover:scale-105 hover:shadow-lg">
 		<img className="w-14" src={icon} alt={`${label} Icon`} />
 		<div>
 			<p className="text-xl font-semibold text-gray-600">{value}</p>
@@ -92,7 +13,7 @@ const StatCard = ({ icon, label, value }) => (
 );
 
 const LatestBookingItem = ({ booking, onCancel }) => (
-	<div className="flex items-center justify-between p-4 border-b">
+	<div className="flex items-center justify-between p-4 border-b hover:bg-gray-100 transition-colors">
 		<div className="flex items-center gap-3">
 			<img
 				src={booking.docData?.image || assets.default_avatar}
@@ -109,7 +30,7 @@ const LatestBookingItem = ({ booking, onCancel }) => (
 		) : (
 			<img
 				onClick={() => onCancel(booking._id)}
-				className="w-6 h-6 rounded-full cursor-pointer hover:bg-red-400"
+				className="w-6 h-6 rounded-full cursor-pointer hover:bg-red-400 hover:p-1 transition-all"
 				src={assets.cancel_icon}
 				alt="Cancel Booking"
 			/>
