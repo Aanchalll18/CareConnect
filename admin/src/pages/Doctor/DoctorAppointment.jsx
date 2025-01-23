@@ -3,9 +3,10 @@ import React, { useContext, useEffect } from 'react';
 import { DoctorContext } from '../../context/DoctorContext';
 import { AppContext } from '../../context/AppContext';
 import { assets } from '../../assets/assets';
+import { matchPath } from 'react-router-dom';
 
 const DoctorAppointment = () => {
-  const { dToken, appointments, getAppointments } = useContext(DoctorContext);
+  const { dToken, appointments, getAppointments,completeAppointment,cancelAppointment} = useContext(DoctorContext);
   const {calculateAge,curreny}=useContext(AppContext)
 
   useEffect(() => {
@@ -53,14 +54,23 @@ const DoctorAppointment = () => {
                 </p>
                 <p>{item.slotTime}</p>
                 <p>{curreny}{item.amount}</p>
-                <div>
-                    <img
-                    className='w-10 cursor-pointer'
-                     src={assets.cancel_icon} alt="" />
-                    <img 
-                    className='w-10 cursor-pointer'
-                    src={assets.tick_icon} alt="" />
-                </div>
+                {
+                  item.cancelled 
+                  ? <p className='text-red-600'>Cancelled</p>
+                  : item.isCompleted 
+                  ? <p className='text-green-600'>Confirmed</p>
+                  : <div>
+                  <img
+                  onClick={()=>cancelAppointment(item._id)}
+                  className='w-10 cursor-pointer'
+                   src={assets.cancel_icon} alt="" />
+                  <img 
+                  onClick={()=>completeAppointment(item._id)}
+                  className='w-10 cursor-pointer'
+                  src={assets.tick_icon} alt="" />
+              </div>
+                }
+                
               </div>
             ))
           ) : (
