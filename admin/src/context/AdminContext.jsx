@@ -39,7 +39,7 @@ const AdminContextProvider = (props) => {
             console.log(data.doctors)
           }
         } catch (error) {
-          toast.error(error,message)
+          toast.error(error.message)
         }
       };
     
