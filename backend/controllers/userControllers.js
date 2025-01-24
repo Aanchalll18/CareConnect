@@ -410,7 +410,7 @@ const paymentRazorpay= async(req,res) =>{
         })
     }
     catch(e){
-        console.log(error)
+        console.log(e)
         return res.status(400).json({
             success:false,
             message:"error"
