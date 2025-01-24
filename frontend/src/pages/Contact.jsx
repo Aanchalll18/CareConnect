@@ -1,39 +1,4 @@
-// import React from 'react'
-// import { assets } from '../assets/assets'
 
-// const Contact = () => {
-
-//   return (
-//     <div>
-//       <div className='text-center text-2xl pt-10 '>
-//         <p className='font-semibold text-grey-500'>CONTACT <span >US</span> </p>
-//       </div>
-//       <div className='my-0 flex flex-col justify-center md:flex-row gap-10 mb-20 text-sm mt-7'>
-//         <img 
-//         className='w-full md:max-w-[360px]'
-//         src={assets.contact_image} alt="" />
-
-//         <div className='flex flex-col justify-center items-start gap-6'>
-
-//           <p className='font-semibold text-lg text-grey-500'>OUR OFFICE</p>
-
-//           <p className=''>734003,Pradhan Nagar Siliguri,WEest Bengal</p>
-
-//           <p className=''>Tel: +91 7530-9864
-//           Email: careconnect18@gmail.com</p>
-
-//           <p className='font-semibold text-lg text-grey-500'>CAREERS AT CARECONNECT</p>
-
-//           <p>Learn more about our teams and job openings.</p>
-
-//           <button className='border px-8 py-4 text-sm hover:bg-primary border-purple2 font-semibold '>Explore Jobs</button>
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
-// export default Contact
 import React from 'react';
 import { assets } from '../assets/assets';
 
