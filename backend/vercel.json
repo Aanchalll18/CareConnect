@@ -1,0 +1,32 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "./server.js",
+        "use": "@vercel/node"
+      },
+      {
+        "src": "routes/**/*.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "./server.js"
+      }
+    ],
+    "env": {
+      "MONGODB_URI": "@MONGODB_URI",
+      "CLOUDINARY_NAME": "@CLOUDINARY_NAME",
+      "CLOUDINARY_API_KEY": "@CLOUDINARY_API_KEY",
+      "CLOUDINARY_SECRET_KEY": "@CLOUDINARY_SECRET_KEY",
+      "ADMIN_EMAIL": "@ADMIN_EMAIL",
+      "ADMIN_PASSWORD": "@ADMIN_PASSWORD",
+      "JWT_SECRET": "@JWT_SECRET",
+      "RAZORPAY_KEY_ID": "@RAZORPAY_KEY_ID",
+      "RAZORPAY_KEY_SECRET": "@RAZORPAY_KEY_SECRET",
+      "CURRENCY": "@CURRENCY"
+    }
+  }
+  
