@@ -2,7 +2,7 @@
 import React, { useContext, useState } from 'react';
 import { AdminContext } from '../context/AdminContext';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 import { DoctorContext } from '../context/DoctorContext';
 
 const Login = () => {
