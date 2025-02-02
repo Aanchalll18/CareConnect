@@ -178,7 +178,7 @@ const MyAppointment = () => {
 									"Paid Button Conditions"
 								)}
 								{!item.cancelled && item.payment && (
-									<button className="min-w-[6rem] px-4 py-1.5 bg-green2 text-white text-sm rounded-md font-medium ">
+									<button className="min-w-[6rem] px-4 py-1.5 border border-green2 text-green2 text-sm rounded-md font-medium ">
 										paid
 									</button>
 								)}
