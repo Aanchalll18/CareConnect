@@ -1,6 +1,6 @@
 
 import { createContext, useState } from "react";
-import { toast } from "react-toastify";
+import toast from 'react-hot-toast'
 import axios from "axios";
 
 export const DoctorContext = createContext();
